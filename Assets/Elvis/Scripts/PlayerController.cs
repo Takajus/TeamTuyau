@@ -70,4 +70,12 @@ public class PlayerController : MonoBehaviour
             canJump = true;
         }
     }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("ground"))
+        {
+            canJump = false;
+        }
+    }
 }
