@@ -43,13 +43,6 @@ public class CameraScript : MonoBehaviour
             _camera.transform.position = new Vector3(_player.transform.position.x + 0.5f, cameraPos.y, -10);
             a = true;
         }
-        if(_player.transform.position.x <= cameraPos.x + 0.5f)
-        {
-            if(_player.GetComponent<PlayerController>().isMoveRight == false)
-            {
-                _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            }
-        }
 
     }
 }

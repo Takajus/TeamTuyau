@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     private bool _canJump = true;
     private bool _isCrouch = false;
     private bool _isAnimationEnd = true;
-    private bool isMoveRight = true;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
@@ -94,14 +93,12 @@ public class PlayerController : MonoBehaviour
             SetPositionToCreatePlatform(positionInstantiateRightPlatform);
             tr.rotation = new Quaternion(0, 0, 0,0);
             Move(Vector2.right);
-            isMoveRight = true;
         }
         else if (Input.GetKey(backward))
         {
             SetPositionToCreatePlatform(positionInstantiateLeftPlatform);
             tr.rotation = new Quaternion(0, -180, 0,0);
             Move(Vector2.left);
-            isMoveRight = false;
         }
     }
 
