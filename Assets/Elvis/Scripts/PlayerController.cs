@@ -8,22 +8,30 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float speed = 2;
     [SerializeField]
-    private float force = 5;
+    private float force = 25;
 
     private Transform tr;
     private Rigidbody2D rb;
+    private BoxCollider2D collider;    
     
     private KeyCode jump = KeyCode.Space;
     private KeyCode forward = KeyCode.D;
     private KeyCode backward = KeyCode.Q;
+    private KeyCode crouch = KeyCode.A;
     
     private bool canJump = true;
-    
+    private bool isCrouch = false;
+
+    [SerializeField]
+    private Vector2 crouchSize = new Vector2(1, 0.5f);
+    private Vector2 defaultCrouchSize = new Vector2(1, 1);
+
     // Start is called before the first frame update
     void Start()
     {
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -34,13 +42,18 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        if (Input.GetKey(jump))
+        if (Input.GetKeyDown(jump))
         {
             if (canJump)
             {
                 canJump = false;
                 Jump();
             }
+        }
+
+        if (Input.GetKeyDown(crouch))
+        {
+            ToggleCrouch();
         }
 
         if (Input.GetKey(forward))
@@ -55,7 +68,17 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        rb.AddForce(Vector2.up * force);
+        rb.AddForce(Vector2.up * (force * speed));
+        
+        if (isCrouch)
+            ToggleCrouch();
+    }
+
+    private void ToggleCrouch()
+    {
+        isCrouch = !isCrouch;
+
+        collider.size = isCrouch ? crouchSize : defaultCrouchSize;
     }
 
     private void Move(Vector3 dir)
@@ -66,16 +89,12 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("ground"))
-        {
             canJump = true;
-        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("ground"))
-        {
             canJump = false;
-        }
     }
 }
