@@ -418,8 +418,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  force: 25
+  force: 15
+  platform: {fileID: 677335107088448013, guid: 97d6dcc0b9e3ecd4e827d9099c785c19, type: 3}
   crouchSize: {x: 1, y: 0.5}
+  positionInstantiateUpPlatform: {x: 0, y: 1}
+  positionInstantiateLeftPlatform: {x: -2, y: 0.5}
+  positionInstantiateRightPlatform: {x: 2, y: 0.5}
 --- !u!50 &1677731336
 Rigidbody2D:
   serializedVersion: 4
@@ -440,7 +444,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1677731337
 BoxCollider2D:
   m_ObjectHideFlags: 0
