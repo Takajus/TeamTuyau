@@ -6,8 +6,13 @@ using UnityEngine.U2D;
 
 public class CameraScript : MonoBehaviour
 {
+    [Header("Camera component")]
     public GameObject _camera;
+    private Vector2 cameraPos;
+    public bool a;
 
+
+    [Header("Player")]
     public GameObject _player;
 
 
@@ -26,5 +31,25 @@ public class CameraScript : MonoBehaviour
         _camera.GetComponent<PixelPerfectCamera>().refResolutionY = 144;
 
         _camera.GetComponent<PixelPerfectCamera>().assetsPPU = 16;
+        cameraPos = _camera.transform.position;
+        a = false;
+    }
+
+    private void Update()
+    {
+        cameraPos = _camera.transform.position;
+        if(_player.transform.position.x >= cameraPos.x - 0.5f)
+        {
+            _camera.transform.position = new Vector3(_player.transform.position.x + 0.5f, cameraPos.y, -10);
+            a = true;
+        }
+        if(_player.transform.position.x <= cameraPos.x + 0.5f)
+        {
+            if(_player.GetComponent<PlayerController>().isMoveRight == false)
+            {
+                _player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+        }
+
     }
 }
