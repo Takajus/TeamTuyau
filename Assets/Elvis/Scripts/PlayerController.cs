@@ -15,19 +15,26 @@ public class PlayerController : MonoBehaviour
 
     private Transform tr;
     private Rigidbody2D rb;
-    private BoxCollider2D collider;    
+    private BoxCollider2D coll;    
     
     [Header("Keybinding")]
+    [SerializeField]
     private KeyCode jump = KeyCode.Space;
+    [SerializeField]
     private KeyCode forward = KeyCode.D;
+    [SerializeField]
     private KeyCode backward = KeyCode.Q;
+    [SerializeField]
     private KeyCode crouch = KeyCode.A;
+    [SerializeField]
     private KeyCode platformCreation = KeyCode.E;
+    [SerializeField]
     private KeyCode platformUpCreation = KeyCode.T;
     
-    private bool canJump = true;
-    private bool isCrouch = false;
-    private bool isAnimationEnd = true;
+    private bool _canJump = true;
+    private bool _isCrouch = false;
+    private bool _isAnimationEnd = true;
+    private bool isMoveRight = true;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
@@ -43,18 +50,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Vector2 positionInstantiateRightPlatform = new Vector2(2,0.5f);
 
-    private Vector2 positionToCreatePlatform;
+    private Vector2 _positionToCreatePlatform;
 
-    private Coroutine currentCoroutine = null;
-
+    private Coroutine _currentCoroutine = null;
+    
     // Start is called before the first frame update
     void Start()
     {
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
-        collider = GetComponent<BoxCollider2D>();
+        coll = GetComponent<BoxCollider2D>();
 
-        positionToCreatePlatform = positionInstantiateRightPlatform;
+        _positionToCreatePlatform = positionInstantiateRightPlatform;
     }
 
     // Update is called once per frame
@@ -66,13 +73,13 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        if (!isAnimationEnd) return;
+        if (!_isAnimationEnd) return;
         
         if (Input.GetKeyDown(jump))
         {
-            if (canJump)
+            if (_canJump)
             {
-                canJump = false;
+                _canJump = false;
                 Jump();
             }
         }
@@ -87,12 +94,14 @@ public class PlayerController : MonoBehaviour
             SetPositionToCreatePlatform(positionInstantiateRightPlatform);
             tr.rotation = new Quaternion(0, 0, 0,0);
             Move(Vector2.right);
+            isMoveRight = true;
         }
         else if (Input.GetKey(backward))
         {
             SetPositionToCreatePlatform(positionInstantiateLeftPlatform);
             tr.rotation = new Quaternion(0, -180, 0,0);
             Move(Vector2.left);
+            isMoveRight = false;
         }
     }
 
@@ -112,15 +121,15 @@ public class PlayerController : MonoBehaviour
     {
         rb.AddForce(Vector2.up * (force * jumpSpeed));
         
-        if (isCrouch)
+        if (_isCrouch)
             ToggleCrouch(); 
     }
 
     private void ToggleCrouch()
     {
-        isCrouch = !isCrouch;
+        _isCrouch = !_isCrouch;
 
-        collider.size = isCrouch ? crouchSize : defaultCrouchSize;
+        coll.size = _isCrouch ? crouchSize : defaultCrouchSize;
     }
 
     private void Move(Vector3 dir)
@@ -130,40 +139,40 @@ public class PlayerController : MonoBehaviour
 
     private void CreatePlatform()
     {
-        if (!canJump) return;
+        if (!_canJump) return;
         
-        isAnimationEnd = false;
+        _isAnimationEnd = false;
             
         Vector2 currentPlayerPosition = tr.position;
-        Vector2 position = currentPlayerPosition + positionToCreatePlatform;
+        Vector2 position = currentPlayerPosition + _positionToCreatePlatform;
 
-        currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
+        _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
         Instantiate(platform, position, Quaternion.identity);
     }
     
     private void SetPositionToCreatePlatform(Vector2 new_position)
     {
-        positionToCreatePlatform = new_position;
+        _positionToCreatePlatform = new_position;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("ground"))
-            canJump = true;
+            _canJump = true;
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("ground"))
-            canJump = false;
+            _canJump = false;
     }
     
     private IEnumerator DelayCreatePlatform(float delay)
     {
         yield return new WaitForSeconds(delay);
         
-        isAnimationEnd = true;
+        _isAnimationEnd = true;
         
-        StopCoroutine(currentCoroutine);
+        StopCoroutine(_currentCoroutine);
     }
 }
