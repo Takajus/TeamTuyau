@@ -170,6 +170,11 @@ public class PlayerController : MonoBehaviour
             Jump();
     }
 
+    public void SetTimeScale(float newSpeed)
+    {
+        speed += newSpeed;
+    }
+
     private void ChangeGravityScale(float new_scale)
     {
         rb.gravityScale = new_scale;
