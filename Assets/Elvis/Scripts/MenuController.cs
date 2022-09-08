@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour
     {
         cursor.transform.localPosition = _positionCursor[2];
 
-        if (!TWFScript || !playerScript || !glideScript)
+        if (TWFScript == null || playerScript == null || glideScript == null)
         {
             TWFScript = gameObject.GetComponent<TheWorldFeature>();
             playerScript = gameObject.GetComponent<PlayerController>();
@@ -43,7 +43,7 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("Cancel"))
+        if (Input.GetButtonDown("Cancel"))
         {
             if (Time.timeScale == 0)
             {

@@ -15,7 +15,7 @@ public class FeaturesManager : MonoBehaviour
     private void Start()
     {
 
-        if(!TWFScript || !playerScript || !glideScript)
+        if(TWFScript == null || playerScript == null || glideScript == null)
         {
             TWFScript = gameObject.GetComponent<TheWorldFeature>();
             playerScript = gameObject.GetComponent<PlayerController>();
@@ -29,17 +29,6 @@ public class FeaturesManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown("Cancel"))
-        {
-            if(Time.timeScale == 0)
-            {
-                Time.timeScale = 1;
-            }
-            if(Time.timeScale == 1)
-            {
-                Time.timeScale = 0;
-            }
-        }
 
         if(Time.timeScale == 0)
         {
