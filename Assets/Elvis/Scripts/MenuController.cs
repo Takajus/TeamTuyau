@@ -25,16 +25,26 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.B))
-            ChangeSelection();*/
+        if (Input.GetKeyDown(KeyCode.B))
+            ChangeSelection(false);
     }
 
-    private void ChangeSelection()
+    private void ChangeSelection(bool right = true)
     {
-        index++;
+        if (right)
+        {
+            index++;
         
-        if (index > _positionCursor.Length -1)
-            index = 0;
+            if (index > _positionCursor.Length -1)
+                index = 0;
+        }
+        else
+        {
+            index--;
+        
+            if (index < 0)
+                index = 2;
+        }
 
         cursor.transform.localPosition = _positionCursor[index];
     }
