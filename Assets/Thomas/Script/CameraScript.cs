@@ -38,11 +38,36 @@ public class CameraScript : MonoBehaviour
     private void Update()
     {
         cameraPos = _camera.transform.position;
-        if(_player.transform.position.x >= cameraPos.x - 0.5f)
+        if (cameraPos.y <= 0)
+        {
+            cameraPos.y = 0;
+        }
+        if (_player.transform.position.x >= cameraPos.x - 0.5f && _player.transform.position.y >= cameraPos.y + 2f)
+        {
+            _camera.transform.position = new Vector3(_player.transform.position.x + 0.5f, _player.transform.position.y - 2f, -10);
+            a = true;
+        }
+        else if (_player.transform.position.x <= cameraPos.x - 0.5f && _player.transform.position.y >= cameraPos.y + 2f)
+        {
+            _camera.transform.position = new Vector3(cameraPos.x, _player.transform.position.y - 2f, -10);
+            a = true;
+        }
+        else if (_player.transform.position.x <= cameraPos.x - 0.5f && _player.transform.position.y < cameraPos.y - 1f && cameraPos.y > 0)
+        {
+            _camera.transform.position = new Vector3(cameraPos.x, _player.transform.position.y + 1f, -10);
+            a = true;
+        }
+        else if (_player.transform.position.x >= cameraPos.x - 0.5f && _player.transform.position.y < cameraPos.y - 1f && cameraPos.y > 0)
+        {
+            _camera.transform.position = new Vector3(_player.transform.position.x + 0.5f, _player.transform.position.y + 1f, -10);
+            a = true;
+        }
+        else if (_player.transform.position.x >= cameraPos.x - 0.5f)
         {
             _camera.transform.position = new Vector3(_player.transform.position.x + 0.5f, cameraPos.y, -10);
             a = true;
         }
+
 
     }
 }
