@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float force = 15;
     [SerializeField]
+    private float gliding = 0.5f;
+    [SerializeField]
     private float distanceLeftWall = 4;
     private int jumpSpeed = 25;
     [SerializeField] 
@@ -37,7 +39,6 @@ public class PlayerController : MonoBehaviour
     private bool _canJump = true;
     private bool _isCrouch = false;
     private bool _isAnimationEnd = true;
-    private bool _canMoveLeft = true;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
@@ -85,8 +86,10 @@ public class PlayerController : MonoBehaviour
         {
             if (_canJump)
             {
+                // Glide();
+                
+                 Jump();
                 _canJump = false;
-                Jump();
             }
         }
 
@@ -121,9 +124,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void Jump(float dist = 1)
     {
-        rb.AddForce(Vector2.up * (force * jumpSpeed));
+        rb.AddForce(Vector2.up * (dist * (force * jumpSpeed)));
         
         if (_isCrouch)
             ToggleCrouch(); 
@@ -159,8 +162,23 @@ public class PlayerController : MonoBehaviour
         _positionToCreatePlatform = new_position;
     }
 
+    private void Glide()
+    {
+        ChangeGravityScale(gliding);
+        
+        if (_canJump)
+            Jump();
+    }
+
+    private void ChangeGravityScale(float new_scale)
+    {
+        rb.gravityScale = new_scale;
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
+        ChangeGravityScale(1);
+        
         if (col.gameObject.CompareTag("ground"))
             _canJump = true;
     }
@@ -170,11 +188,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("ground"))
             _canJump = false;
         if (other.gameObject.CompareTag("LeftWall"))
-        {
-            _canMoveLeft = false;
-            print("Collide left wall");
             Vector2.Distance(other.transform.position, tr.position);
-        }
     }
     
     private IEnumerator DelayCreatePlatform(float delay)
