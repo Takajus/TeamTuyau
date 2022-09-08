@@ -13,7 +13,10 @@ public class PlayerController : MonoBehaviour
     private float gliding = 0.5f;
     [SerializeField]
     private float distanceLeftWall = 4;
+    
     private int jumpSpeed = 25;
+    private float _defaultSpeed;
+    
     [SerializeField] 
     private GameObject platform;
     private GameObject leftWall;
@@ -67,6 +70,8 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
 
+        _defaultSpeed = speed;
+        
         leftWall = GameObject.FindGameObjectWithTag("LeftWall");
         _positionToCreatePlatform = positionInstantiateRightPlatform;
     }
@@ -155,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
         _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
         Instantiate(platform, position, Quaternion.identity);
-    }
+    }   
     
     private void SetPositionToCreatePlatform(Vector2 new_position)
     {
@@ -175,6 +180,11 @@ public class PlayerController : MonoBehaviour
         speed += newSpeed;
     }
 
+    public void ResetSpeed()
+    {
+        speed = _defaultSpeed;
+    }
+    
     private void ChangeGravityScale(float new_scale)
     {
         rb.gravityScale = new_scale;
