@@ -153,7 +153,7 @@ MonoBehaviour:
   speed: 10
   force: 15
   gliding: 0.5
-  distanceLeftWall: 5.2
+  distanceLeftWall: 5.38
   platform: {fileID: 677335107088448013, guid: 97d6dcc0b9e3ecd4e827d9099c785c19, type: 3}
   jump: 32
   forward: 100

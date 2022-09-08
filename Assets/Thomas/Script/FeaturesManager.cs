@@ -23,7 +23,6 @@ public class FeaturesManager : MonoBehaviour
         }
 
         TWFScript.enabled = false;
-        playerScript.enabled = false;
         glideScript.enabled = false;
     }
 
@@ -33,7 +32,6 @@ public class FeaturesManager : MonoBehaviour
         if(Time.timeScale == 0)
         {
             TWFScript.enabled = false;
-            playerScript.enabled = false;
             glideScript.enabled = false;
 
             if (cursorPos == -1)
