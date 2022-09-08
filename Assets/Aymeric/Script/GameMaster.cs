@@ -6,6 +6,7 @@ public class GameMaster : MonoBehaviour
 {
     public static GameMaster instance;
     public float countdown = 500f;
+    //recup = GameMaster.instance.high
     public int high = 0;
     public int animation_nb = 0;
 
