@@ -20,7 +20,7 @@ public class CameraScript : MonoBehaviour
     {
         if(_player.gameObject == null)
         {
-            _player = GameObject.FindGameObjectWithTag("player");
+            _player = GameObject.FindGameObjectWithTag("Player");
         }
 
         if(_camera.GetComponent<PixelPerfectCamera>() == null)

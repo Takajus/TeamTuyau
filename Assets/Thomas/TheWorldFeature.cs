@@ -9,36 +9,34 @@ public class TheWorldFeature : MonoBehaviour
     private PlayerController playerCtrl;
     [SerializeField]
     private float theWorldTimer;
-    private float tempSpeed;
+    [SerializeField]
+    private float tempMultiplicator;
 
     private void Start()
     {
         if (player.gameObject == null)
         {
-            player = GameObject.FindGameObjectWithTag("player");
+            player = GameObject.FindGameObjectWithTag("Player");
         }
         playerCtrl = player.GetComponent<PlayerController>();
-        tempSpeed = playerCtrl.speed;
 
     }
     private void Update()
     {
-        if (Input.GetKeyDown("E"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            StartCoroutine(TheWorldFunction());
         }
     }
 
     IEnumerator TheWorldFunction()
     {
         Time.timeScale = Time.timeScale / 2;
-        playerCtrl.speed = tempSpeed * 2;
+        playerCtrl.SetTimeScale(tempMultiplicator);
 
         yield return new WaitForSecondsRealtime(theWorldTimer);
 
         Time.timeScale = 1;
-
-        }
-
+        playerCtrl.ResetSpeed();
     }
 }
