@@ -9,9 +9,12 @@ public class PlayerController : MonoBehaviour
     private float speed = 2;
     [SerializeField]
     private float force = 15;
+    [SerializeField]
+    private float distanceLeftWall = 4;
     private int jumpSpeed = 25;
     [SerializeField] 
     private GameObject platform;
+    private GameObject leftWall;
 
     private Transform tr;
     private Rigidbody2D rb;
@@ -34,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private bool _canJump = true;
     private bool _isCrouch = false;
     private bool _isAnimationEnd = true;
+    private bool _canMoveLeft = true;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
@@ -56,10 +60,13 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.layer = 8;
+        
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
 
+        leftWall = GameObject.FindGameObjectWithTag("LeftWall");
         _positionToCreatePlatform = positionInstantiateRightPlatform;
     }
 
@@ -94,7 +101,7 @@ public class PlayerController : MonoBehaviour
             tr.rotation = new Quaternion(0, 0, 0,0);
             Move(Vector2.right);
         }
-        else if (Input.GetKey(backward))
+        else if (Input.GetKey(backward) && Vector2.Distance(leftWall.transform.position, tr.position) > distanceLeftWall)
         {
             SetPositionToCreatePlatform(positionInstantiateLeftPlatform);
             tr.rotation = new Quaternion(0, -180, 0,0);
@@ -162,6 +169,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ground"))
             _canJump = false;
+        if (other.gameObject.CompareTag("LeftWall"))
+        {
+            _canMoveLeft = false;
+            print("Collide left wall");
+            Vector2.Distance(other.transform.position, tr.position);
+        }
     }
     
     private IEnumerator DelayCreatePlatform(float delay)
