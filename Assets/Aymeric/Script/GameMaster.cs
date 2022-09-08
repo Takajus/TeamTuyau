@@ -19,4 +19,14 @@ public class GameMaster : MonoBehaviour
         }
     }
     // Start is called before the first frame update
+    
+    private float GetScore(float maxTime = 500)
+    {
+        float time = maxTime - countdown;
+        float defonce = 100 - high;
+            
+        float score = time + defonce;
+        
+        return score;
+    }
 }
