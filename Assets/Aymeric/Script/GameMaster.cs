@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameMaster : MonoBehaviour
 {
     public static GameMaster instance;
+    public float countdown = 500f;
     public int high = 0;
     public int animation_nb = 0;
 
