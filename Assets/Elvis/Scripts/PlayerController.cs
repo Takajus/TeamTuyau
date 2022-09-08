@@ -93,9 +93,7 @@ public class PlayerController : MonoBehaviour
         {
             if (_canJump)
             {
-                // Glide();
-                
-                 Jump();
+                Jump();
                 _canJump = false;
             }
         }
@@ -174,7 +172,7 @@ public class PlayerController : MonoBehaviour
         _canMove = value;
     }
     
-    private void Glide()
+    public void Glide()
     {
         ChangeGravityScale(gliding);
         
