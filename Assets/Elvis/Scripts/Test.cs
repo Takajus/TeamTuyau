@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class Test : MonoBehaviour
 {
     [SerializeField]
     private float speed = 2;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     private bool _isCrouch = false;
     private bool _isAnimationEnd = true;
     private bool _canMove = true;
-    private bool _canCreateMorePlatform = false;
+    private bool _canCreateMorePlatform = true;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
@@ -85,8 +85,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement();
-        
-        //if (featureChose == 1) 
         Interaction();
     }
 
@@ -233,9 +231,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("ground") || other.gameObject.CompareTag("platform"))
+        if (other.gameObject.CompareTag("ground"))
             _canJump = false;
-            
         if (other.gameObject.CompareTag("LeftWall"))
             Vector2.Distance(other.transform.position, tr.position);
     }

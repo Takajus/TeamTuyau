@@ -6,6 +6,7 @@ public class GameMaster : MonoBehaviour
 {
     public static GameMaster instance;
     public float countdown = 500f;
+    //recup = GameMaster.instance.high
     public int high = 0;
     public int animation_nb = 0;
 
@@ -19,4 +20,14 @@ public class GameMaster : MonoBehaviour
         }
     }
     // Start is called before the first frame update
+    
+    private float GetScore(float maxTime = 500)
+    {
+        float time = maxTime - countdown;
+        float defonce = 100 - high;
+            
+        float score = time + defonce;
+        
+        return score;
+    }
 }
