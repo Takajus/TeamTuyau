@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Ennemy_movement : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class Ennemy_movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetInteger("animationNumber", gm.animation_nb);
+    animator.SetInteger("animationNumber", gm.animation_nb);
+        
+
     }
+    
 }

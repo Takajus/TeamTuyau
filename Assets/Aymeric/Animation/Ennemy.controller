@@ -35,7 +35,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 6
-    m_ConditionEvent: AnimationNumber
+    m_ConditionEvent: animationNumber
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8711804694887295224}
@@ -86,7 +86,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 6
-    m_ConditionEvent: AnimationNumber
+    m_ConditionEvent: animationNumber
     m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1504238251913640288}
@@ -111,7 +111,7 @@ AnimatorController:
   m_Name: Ennemy
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: AnimationNumber
+  - m_Name: animationNumber
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
