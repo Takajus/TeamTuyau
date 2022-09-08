@@ -43,13 +43,14 @@ public class PlayerController : MonoBehaviour
     private bool _isCrouch = false;
     private bool _isAnimationEnd = true;
     private bool _canMove = true;
+    private bool _canCreateMorePlatform = false;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
     private Vector2 defaultCrouchSize = new Vector2(1, 1);
 
     [SerializeField, Header("Animation delay")] 
-    private float animationPlatformCreation = 1f;
+    private float animationPlatformCreation = 0.25f;
 
     [SerializeField, Header("Position platform")] 
     private Vector2 positionInstantiateUpPlatform = new Vector2(0,0.75f);
@@ -61,7 +62,10 @@ public class PlayerController : MonoBehaviour
     private Vector2 _positionToCreatePlatform;
 
     private Coroutine _currentCoroutine = null;
-    
+
+    [SerializeField] 
+    private int maxPlatformCanCreate = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -158,15 +162,27 @@ public class PlayerController : MonoBehaviour
         Vector2 currentPlayerPosition = tr.position;
         Vector2 position = currentPlayerPosition + _positionToCreatePlatform;
 
-        _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
-        Instantiate(platform, position, Quaternion.identity);
+        if (_canCreateMorePlatform)
+        {
+            Instantiate(platform, position, Quaternion.identity);
+            _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
+        }
+        else
+        {
+            if (maxPlatformCanCreate <= 0) return;
+            
+            Instantiate(platform, position, Quaternion.identity);
+            _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
+
+            maxPlatformCanCreate--;
+        }
     }   
     
     private void SetPositionToCreatePlatform(Vector2 new_position)
     {
         _positionToCreatePlatform = new_position;
     }
-
+    
     public void SetCanMove(bool value)
     {
         _canMove = value;
@@ -200,7 +216,17 @@ public class PlayerController : MonoBehaviour
         ChangeGravityScale(1);
         
         if (col.gameObject.CompareTag("ground"))
+        {
             _canJump = true;
+            _canCreateMorePlatform = true;
+            maxPlatformCanCreate = 2;
+        }
+        
+        if (col.gameObject.CompareTag("platform"))
+        {
+            _canJump = true;
+            _canCreateMorePlatform = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)

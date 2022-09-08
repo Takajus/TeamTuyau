@@ -10,6 +10,7 @@ TagManager:
   - LeftWall
   - MobWall
   - Monster
+  - platform
   layers:
   - Default
   - TransparentFX
