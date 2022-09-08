@@ -7,6 +7,7 @@ TagManager:
   - ground
   - Ennemy1
   - Ennemy2
+  - LeftWall
   layers:
   - Default
   - TransparentFX
