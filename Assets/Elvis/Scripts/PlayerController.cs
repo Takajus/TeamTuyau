@@ -195,6 +195,7 @@ public class PlayerController : MonoBehaviour
     public void Glide()
     {
         ChangeGravityScale(gliding);
+        force = 10;
         
         if (_canJump)
             Jump();
@@ -217,8 +218,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        ChangeGravityScale(1);
-        
+        ChangeGravityScale(5);
+        force = 30;
+
         if (col.gameObject.CompareTag("ground"))
         {
             _canJump = true;
