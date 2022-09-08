@@ -20,6 +20,8 @@ public class MenuController : MonoBehaviour
         new Vector2(3, -45),
         new Vector2(45, -45)
     };
+
+    private int index = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -78,5 +80,27 @@ public class MenuController : MonoBehaviour
                 glideScript.enabled = false;
             }
         }
+        if (Input.GetKeyDown(KeyCode.B))
+            ChangeSelection(false);
+    }
+
+    private void ChangeSelection(bool right = true)
+    {
+        if (right)
+        {
+            index++;
+        
+            if (index > _positionCursor.Length -1)
+                index = 0;
+        }
+        else
+        {
+            index--;
+        
+            if (index < 0)
+                index = 2;
+        }
+
+        cursor.transform.localPosition = _positionCursor[index];
     }
 }
