@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 408440358049958904}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: ground
+  m_TagString: platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,4 +144,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302a104ea60fedf4e8b304d3cfdaaa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 2
+  timeToDestroy: 6

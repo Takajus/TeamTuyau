@@ -5,11 +5,11 @@ using UnityEngine;
 public class PlatformController : MonoBehaviour
 {
     [SerializeField]
-    private float timeToDestroy = 2f;
+    private float timeToDestroy = 4f;
     
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         Destroy(gameObject, timeToDestroy);
     }
 
