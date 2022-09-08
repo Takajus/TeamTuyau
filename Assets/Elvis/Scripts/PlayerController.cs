@@ -166,7 +166,7 @@ public class PlayerController : MonoBehaviour
     {
         _positionToCreatePlatform = new_position;
     }
-
+    
     private void Glide()
     {
         ChangeGravityScale(gliding);
@@ -177,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
     public void SetTimeScale(float newSpeed)
     {
-        speed += newSpeed;
+        speed *= newSpeed;
     }
 
     public void ResetSpeed()
