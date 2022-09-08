@@ -82,6 +82,8 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Interaction();
+
+        print(Vector2.Distance(leftWall.transform.position, tr.position));
     }
 
     private void Movement()
@@ -109,7 +111,7 @@ public class PlayerController : MonoBehaviour
             tr.rotation = new Quaternion(0, 0, 0,0);
             Move(Vector2.right);
         }
-        else if (Input.GetKey(backward) && Vector2.Distance(leftWall.transform.position, tr.position) > distanceLeftWall)
+        else if (Input.GetKey(backward) && Vector2.Distance(leftWall.transform.position, tr.position) < distanceLeftWall)
         {
             SetPositionToCreatePlatform(positionInstantiateLeftPlatform);
             tr.rotation = new Quaternion(0, -180, 0,0);
