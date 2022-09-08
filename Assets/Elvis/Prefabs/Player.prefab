@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3248042751571425781}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,6 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   force: 15
+  gliding: 0.5
+  distanceLeftWall: 4
   platform: {fileID: 677335107088448013, guid: 97d6dcc0b9e3ecd4e827d9099c785c19, type: 3}
   jump: 32
   forward: 100
