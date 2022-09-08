@@ -9,9 +9,17 @@ public class PlayerController : MonoBehaviour
     private float speed = 2;
     [SerializeField]
     private float force = 15;
+    [SerializeField]
+    private float gliding = 0.5f;
+    [SerializeField]
+    private float distanceLeftWall = 4;
+    
     private int jumpSpeed = 25;
+    private float _defaultSpeed;
+    
     [SerializeField] 
     private GameObject platform;
+    private GameObject leftWall;
 
     private Transform tr;
     private Rigidbody2D rb;
@@ -56,10 +64,15 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.layer = 8;
+        
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
 
+        _defaultSpeed = speed;
+        
+        leftWall = GameObject.FindGameObjectWithTag("LeftWall");
         _positionToCreatePlatform = positionInstantiateRightPlatform;
     }
 
@@ -78,8 +91,10 @@ public class PlayerController : MonoBehaviour
         {
             if (_canJump)
             {
+                // Glide();
+                
+                 Jump();
                 _canJump = false;
-                Jump();
             }
         }
 
@@ -94,7 +109,7 @@ public class PlayerController : MonoBehaviour
             tr.rotation = new Quaternion(0, 0, 0,0);
             Move(Vector2.right);
         }
-        else if (Input.GetKey(backward))
+        else if (Input.GetKey(backward) && Vector2.Distance(leftWall.transform.position, tr.position) > distanceLeftWall)
         {
             SetPositionToCreatePlatform(positionInstantiateLeftPlatform);
             tr.rotation = new Quaternion(0, -180, 0,0);
@@ -114,9 +129,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Jump()
+    private void Jump(float dist = 1)
     {
-        rb.AddForce(Vector2.up * (force * jumpSpeed));
+        rb.AddForce(Vector2.up * (dist * (force * jumpSpeed)));
         
         if (_isCrouch)
             ToggleCrouch(); 
@@ -145,15 +160,40 @@ public class PlayerController : MonoBehaviour
 
         _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
         Instantiate(platform, position, Quaternion.identity);
-    }
+    }   
     
     private void SetPositionToCreatePlatform(Vector2 new_position)
     {
         _positionToCreatePlatform = new_position;
     }
 
+    private void Glide()
+    {
+        ChangeGravityScale(gliding);
+        
+        if (_canJump)
+            Jump();
+    }
+
+    public void SetTimeScale(float newSpeed)
+    {
+        speed += newSpeed;
+    }
+
+    public void ResetSpeed()
+    {
+        speed = _defaultSpeed;
+    }
+    
+    private void ChangeGravityScale(float new_scale)
+    {
+        rb.gravityScale = new_scale;
+    }
+
     private void OnCollisionEnter2D(Collision2D col)
     {
+        ChangeGravityScale(1);
+        
         if (col.gameObject.CompareTag("ground"))
             _canJump = true;
     }
@@ -162,6 +202,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ground"))
             _canJump = false;
+        if (other.gameObject.CompareTag("LeftWall"))
+            Vector2.Distance(other.transform.position, tr.position);
     }
     
     private IEnumerator DelayCreatePlatform(float delay)
