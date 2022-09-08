@@ -7,11 +7,9 @@ public class FeaturesManager : MonoBehaviour
     private TheWorldFeature TWFScript;
     private PlayerController playerScript;
     private GlideManager glideScript;
-    private int[] lol;
     // canvas
 
     public bool _featuresChose = false;
-    private bool isMenu;
     private int cursorPos;
 
     private void Start()
@@ -27,7 +25,6 @@ public class FeaturesManager : MonoBehaviour
         TWFScript.enabled = false;
         playerScript.enabled = false;
         glideScript.enabled = false;
-        isMenu = false;
     }
 
     public void Update()
