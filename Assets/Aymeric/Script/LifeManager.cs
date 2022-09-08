@@ -64,6 +64,7 @@ public class LifeManager : MonoBehaviour
         {
             flashActive = true;
             flashCounter = flashLenght;
+            GameMaster.instance.countdown -= timeHit;
         }
     }
 }
