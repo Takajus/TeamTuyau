@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private bool _canJump = true;
     private bool _isCrouch = false;
     private bool _isAnimationEnd = true;
+    private bool _canMove = true;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
@@ -86,6 +87,7 @@ public class PlayerController : MonoBehaviour
     private void Movement()
     {
         if (!_isAnimationEnd) return;
+        if (!_canMove) return;
         
         if (Input.GetKeyDown(jump))
         {
@@ -165,6 +167,11 @@ public class PlayerController : MonoBehaviour
     private void SetPositionToCreatePlatform(Vector2 new_position)
     {
         _positionToCreatePlatform = new_position;
+    }
+
+    public void SetCanMove(bool value)
+    {
+        _canMove = value;
     }
     
     private void Glide()
