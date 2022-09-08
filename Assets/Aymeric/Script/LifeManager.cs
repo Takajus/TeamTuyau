@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
+    [Header("Minus time after hit")]
     public int timeHit;
 
     private bool flashActive;

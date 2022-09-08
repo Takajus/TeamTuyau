@@ -9,6 +9,7 @@ TagManager:
   - Ennemy2
   - LeftWall
   - MobWall
+  - Monster
   layers:
   - Default
   - TransparentFX

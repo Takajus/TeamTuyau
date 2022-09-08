@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class TheWorldFeature : MonoBehaviour
 {
-    [SerializeField]
     private GameObject player;
     private PlayerController playerCtrl;
+    [Header("\"The World\" duration")]
     [SerializeField]
     private float theWorldTimer;
-    [SerializeField]
+    [Header("Character speed during \"The Wolrd\"")]
+    [SerializeField][Range(0.1f, 1.0f)]
     private float tempMultiplicator;
 
     private void Start()
@@ -18,7 +19,11 @@ public class TheWorldFeature : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player");
         }
-        playerCtrl = player.GetComponent<PlayerController>();
+        else
+        {
+            playerCtrl = player.GetComponent<PlayerController>();
+        }
+            
 
     }
     private void Update()

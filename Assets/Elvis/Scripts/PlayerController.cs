@@ -82,8 +82,6 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Interaction();
-
-        print(Vector2.Distance(leftWall.transform.position, tr.position));
     }
 
     private void Movement()
