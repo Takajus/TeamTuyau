@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] 
     private GameObject platform;
     private GameObject leftWall;
+    private MenuController menu;
 
     private Transform tr;
     private Rigidbody2D rb;
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour
         tr = GetComponent<Transform>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<BoxCollider2D>();
+        menu = GetComponent<MenuController>();
 
         _defaultSpeed = speed;
         
@@ -86,8 +88,8 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         
-        //if (featureChose == 1) 
-        Interaction();
+        if (menu._featuresChose) 
+            Interaction();
     }
 
     private void Movement()

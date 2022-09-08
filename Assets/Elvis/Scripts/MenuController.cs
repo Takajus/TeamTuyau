@@ -54,6 +54,7 @@ public class MenuController : MonoBehaviour
                 else if (cursorPos == 0)
                 {
                     print("Plateforme");
+                    _featuresChose = true;
                 }
                 else if (cursorPos == 1)
                 {
@@ -78,6 +79,7 @@ public class MenuController : MonoBehaviour
                 TWFScript.enabled = false;
                 playerScript.enabled = false;
                 glideScript.enabled = false;
+                _featuresChose = false;
             }
         }
         if (Input.GetKeyDown(KeyCode.B))
@@ -101,6 +103,7 @@ public class MenuController : MonoBehaviour
                 index = 2;
         }
 
+        cursorPos = index;
         cursor.transform.localPosition = _positionCursor[index];
     }
 }
