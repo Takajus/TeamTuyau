@@ -10,7 +10,8 @@ public class TheWorldFeature : MonoBehaviour
     [SerializeField]
     private float theWorldTimer;
     [Header("Character speed during \"The Wolrd\"")]
-    [SerializeField][Range(0.1f, 2.0f)]
+    [SerializeField]
+    [Range(0.1f, 50.0f)]
     private float tempMultiplicator;
 
     private void Start()
@@ -23,7 +24,7 @@ public class TheWorldFeature : MonoBehaviour
         {
             playerCtrl = player.GetComponent<PlayerController>();
         }
-            
+
 
     }
     private void Update()
@@ -36,12 +37,18 @@ public class TheWorldFeature : MonoBehaviour
 
     IEnumerator TheWorldFunction()
     {
-        playerCtrl.Smoke();
-        yield return new WaitForSeconds(2);
-        Time.timeScale = 0.5f;
-        playerCtrl.SetTimeScale(tempMultiplicator);
-        yield return new WaitForSeconds(theWorldTimer);
-        Time.timeScale = 1;
-        playerCtrl.ResetSpeed();
+        if (playerCtrl._canJump == true)
+        {
+            playerCtrl.Smoke();
+            yield return new WaitForSeconds(2);
+            Time.timeScale = 0.5f;
+            playerCtrl.SetTimeScale(tempMultiplicator);
+            yield return new WaitForSeconds(theWorldTimer);
+            Time.timeScale = 1;
+            playerCtrl.ResetSpeed();
+        }
+        else
+            yield break;
+
     }
 }

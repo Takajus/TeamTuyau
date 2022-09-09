@@ -16,11 +16,16 @@ public class PlayerController : MonoBehaviour
     
     private int jumpSpeed = 25;
     private float _defaultSpeed;
+    private float horizontal;
+    private bool _isfacingRight = true;
     
     [SerializeField] 
     private GameObject platform;
     private GameObject leftWall;
     private MenuController menu;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask platLayer;
 
     private Transform tr;
     private Rigidbody2D rb;
@@ -42,7 +47,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private KeyCode platformUpCreation = KeyCode.T;
     
-    private bool _canJump = true;
+    public bool _canJump = true;
     private bool _isCrouch = false;
     private bool _isAnimationEnd = true;
     private bool _canMove = true;
@@ -91,9 +96,28 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         Movement();
-        
+        Flip();
         if (menu._featuresChose) 
             Interaction();
+        
+        if (IsGroundedGround())
+        {
+            ChangeGravityScale(5);
+            force = 33;
+            _isGliding = false;
+            _canJump = true;
+            _canCreateMorePlatform = true;
+            maxPlatformCanCreate = 2;
+        }
+        
+        if (IsGroundedPlat())
+        {
+            ChangeGravityScale(5);
+            force = 33;
+            _isGliding = false;
+            _canJump = true;
+            _canCreateMorePlatform = false;
+        }
     }
 
     private void Movement()
@@ -119,19 +143,23 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKey(forward) && !_isSmoking)
         {
+            horizontal = 1;
             SetPositionToCreatePlatform(positionInstantiateRightPlatform);
-            tr.rotation = new Quaternion(0, 0, 0,0);
-            Move(Vector2.right);
+          //  tr.rotation = new Quaternion(0, 0, 0,0);
+            Move();
         }
         else if (Input.GetKey(backward) && Vector2.Distance(leftWall.transform.position, tr.position) < distanceLeftWall && !_isSmoking)
         {
+            horizontal = -1;
             SetPositionToCreatePlatform(positionInstantiateLeftPlatform);
-            tr.rotation = new Quaternion(0, -180, 0,0);
-            Move(Vector2.left);
+        //    tr.rotation = new Quaternion(0, -180, 0,0);
+            Move();
         }
         else
         {
+            horizontal = 0;
             animator.SetBool("Move", false);
+            Move();
         }
     }
 
@@ -162,11 +190,32 @@ public class PlayerController : MonoBehaviour
         coll.size = _isCrouch ? crouchSize : defaultCrouchSize;
     }
 
-    private void Move(Vector3 dir)
+    private void Move()
     {
-        if (!_isGliding)
+        if (!_isGliding && horizontal != 0)
             animator.SetBool("Move", true);
-        tr.position += dir * (speed * Time.deltaTime);
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        //tr.position += dir * (speed * Time.deltaTime);
+    }
+
+    private bool IsGroundedGround()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+    private bool IsGroundedPlat()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, platLayer);
+    }
+
+    private void Flip()
+    {
+        if(_isfacingRight && horizontal < 0f || !_isfacingRight && horizontal > 0f)
+        {
+            _isfacingRight = !_isfacingRight;
+            Vector3 localscale = transform.localScale;
+            localscale.x *= -1f;
+            transform.localScale = localscale;
+        }
     }
 
     private void CreatePlatform()
@@ -210,13 +259,16 @@ public class PlayerController : MonoBehaviour
     
     public void Glide()
     {
-        _isGliding = true;
-        Smoke();
+        if (_canJump)
+        {
+            _isGliding = true;
+            Smoke();
+        }
     }
 
     public void SetTimeScale(float newSpeed)
     {
-        speed *= newSpeed;
+        speed = newSpeed;
         animator.SetTrigger("Idle");
     }
 
@@ -232,24 +284,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        ChangeGravityScale(5);
-        force = 33;
-        _isGliding = false;
-
-        if (col.gameObject.CompareTag("ground"))
-        {
-            _canJump = true;
-            _canCreateMorePlatform = true;
-            maxPlatformCanCreate = 2;
-            animator.SetTrigger("Idle");
-        }
-        
-        if (col.gameObject.CompareTag("platform"))
-        {
-            _canJump = true;
-            _canCreateMorePlatform = false;
-            animator.SetTrigger("Idle");
-        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -273,10 +307,14 @@ public class PlayerController : MonoBehaviour
 
     public void Smoke()
     {
-        _isSmoking = true;
-        animator.SetBool("Move", false);
-        animator.SetTrigger("Smoke");
-        StartCoroutine(DelaySmoking(2));
+        if (!_isSmoking && _canJump)
+        {
+            _isSmoking = true;
+            animator.SetBool("Move", false);
+            animator.SetTrigger("Smoke");
+            StartCoroutine(DelaySmoking(2));
+            GameMaster.instance.high += 15;
+        }
     }
 
     private IEnumerator DelaySmoking(float delay)
