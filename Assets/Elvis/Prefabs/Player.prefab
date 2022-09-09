@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a86d192d8f416ff41b5d10515e7c6e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeHit: 0
+  timeHit: 20
   ouch: {fileID: 3153859845533402915}
   flashLenght: 1
 --- !u!114 &8535804457111565075

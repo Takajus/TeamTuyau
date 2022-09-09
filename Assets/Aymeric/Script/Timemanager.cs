@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class Timemanager : MonoBehaviour
 {
-    private TextMeshProUGUI _txtTimer;
     [SerializeField]
+    private TextMeshProUGUI _txtTimer;
+
 
 
     // Start is called before the first frame update
     public void Start()
     {
-        _txtTimer = GetComponent<TextMeshProUGUI>();
+        //_txtTimer = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -20,6 +21,6 @@ public class Timemanager : MonoBehaviour
     {
     GameMaster.instance.countdown -= Time.deltaTime;
 
-    _txtTimer.text = "Timer: " + GameMaster.instance.countdown.ToString();
+    //_txtTimer.text = "Timer: " + GameMaster.instance.countdown.ToString();
     }
 }
