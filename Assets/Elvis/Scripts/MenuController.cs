@@ -87,11 +87,16 @@ public class MenuController : MonoBehaviour
                 menu.SetActive(isMenuActive);
             }
         }
-        if (Input.GetKeyDown(KeyCode.B))
-            ChangeSelection();
+        
+        if (Input.GetKeyDown(KeyCode.Q) && isMenuActive)
+        {
+            ChangeSelection(false);
+        }
+        if (Input.GetKeyDown(KeyCode.D) && isMenuActive)
+            ChangeSelection(true);
     }
 
-    private void ChangeSelection(bool right = true)
+    public void ChangeSelection(bool right = true)
     {
         if (right)
         {
@@ -110,5 +115,6 @@ public class MenuController : MonoBehaviour
 
         cursorPos = index;
         cursor.transform.localPosition = _positionCursor[index];
+        Debug.LogWarning("Cusror moved: index " + index + " - pos "+_positionCursor[index]);
     }
 }
