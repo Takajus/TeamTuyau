@@ -7,12 +7,15 @@ public class MenuController : MonoBehaviour
     [SerializeField]
     private GameObject cursor, menu;
 
+    [SerializeField]
     private TheWorldFeature TWFScript;
+    [SerializeField]
     private PlayerController playerScript;
+    [SerializeField]
     private GlideManager glideScript;
 
     public bool _featuresChose = false;
-    private int cursorPos;
+    public int cursorPos = 0;
 
     private Vector2[] _positionCursor =
     {
@@ -26,6 +29,7 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         cursor.transform.localPosition = _positionCursor[2];
 
         if (TWFScript == null || playerScript == null || glideScript == null)
@@ -36,20 +40,23 @@ public class MenuController : MonoBehaviour
         }
 
         TWFScript.enabled = false;
-        playerScript.enabled = false;
         glideScript.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             if (Time.timeScale == 0)
             {
                 if (cursorPos == 3)
                 {
                     print("button settup is wrong");
+                    
+                    TWFScript.enabled = false;
+                    glideScript.enabled = false;
+                    _featuresChose = false;
                 }
                 else if (cursorPos == 0)
                 {
@@ -60,11 +67,17 @@ public class MenuController : MonoBehaviour
                 {
                     print("THE WORLD");
                     TWFScript.enabled = true;
+                    
+                    glideScript.enabled = false;
+                    _featuresChose = false;
                 }
                 else if (cursorPos == 2)
                 {
                     print("Glide");
                     glideScript.enabled = true;
+                    
+                    TWFScript.enabled = false;
+                    _featuresChose = false;
                 }
 
                 menu.SetActive(false);
@@ -77,7 +90,6 @@ public class MenuController : MonoBehaviour
                 Time.timeScale = 0;
 
                 TWFScript.enabled = false;
-                playerScript.enabled = false;
                 glideScript.enabled = false;
                 _featuresChose = false;
             }
