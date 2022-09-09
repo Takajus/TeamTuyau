@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D coll;
 
+    public AudioSource jumping;
+    public AudioSource create;
     public Animator animator;
     
     [Header("Keybinding")]
@@ -92,6 +94,7 @@ public class PlayerController : MonoBehaviour
         _positionToCreatePlatform = positionInstantiateRightPlatform;
         GameMaster.instance.high = 0; 
         GameMaster.instance.countdown = 500;
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
@@ -171,9 +174,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PlayJump(){
+        jumping.Play ();
+    }
+
     private void Jump(float dist = 1)
     {
         rb.AddForce(Vector2.up * (dist * (force * jumpSpeed)));
+        jumping.Play ();
     }
 
 
@@ -205,6 +213,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PlayCreate(){
+        create.Play ();
+    }
+
     private void CreatePlatform()
     {
         if (!_canJump) return;
@@ -216,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
         if (_canCreateMorePlatform)
         {
+            create.Play ();
             animator.SetBool("Move", false);
             animator.SetTrigger("Smoke");
             Instantiate(platform, position, Quaternion.identity);
