@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 692d74876b3fac14bad5c446abf115a3
+guid: c12c905207c24b04088904cc7b01f16d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AnimPipe_0
+      name: Leaf_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
-        height: 17
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61a67b945b65fa746b6c4d5e542e8161
-      internalID: 343456768
+      spriteID: dabed1b4cccfe364c948d6b9bc4fc489
+      internalID: -1396413582
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimPipe_1
+      name: Leaf_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 64
-        height: 17
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5501a2d056aebf4684d4aeedc6c7dc7
-      internalID: -905481457
+      spriteID: 89ba74530bfdaf64fa78cef8265bb62a
+      internalID: -1749875719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimPipe_2
+      name: Leaf_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 64
-        height: 17
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 55507d3803e8b5e468d8fc37e05f33c4
-      internalID: 2029316577
+      spriteID: 4c625910d6bdd92428505ffe6d94f774
+      internalID: 741757773
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AnimPipe_3
+      name: Leaf_3
       rect:
         serializedVersion: 2
         x: 192
         y: 0
         width: 64
-        height: 17
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,50 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 817e0d5279686784c94559c9f98c882a
-      internalID: -1601034004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AnimPipe_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 733ac89102f353143aa9296cbc65a8c1
-      internalID: 614278423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: AnimPipe_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f2e8fc4d333af894aa1f1b974b04584c
-      internalID: 795384646
+      spriteID: 25198987fc821364a8f125ad93ae2cc6
+      internalID: -2123470058
       vertices: []
       indices: 
       edges: []
@@ -241,12 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AnimPipe_5: 795384646
-      AnimPipe_3: -1601034004
-      AnimPipe_4: 614278423
-      AnimPipe_2: 2029316577
-      AnimPipe_0: 343456768
-      AnimPipe_1: -905481457
+      Leaf_1: -1749875719
+      Leaf_0: -1396413582
+      Leaf_2: 741757773
+      Leaf_3: -2123470058
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TheWorldFeature : MonoBehaviour
 {
-    private GameObject player;
+    public GameObject player;
     private PlayerController playerCtrl;
     [Header("\"The World\" duration")]
     [SerializeField]
     private float theWorldTimer;
     [Header("Character speed during \"The Wolrd\"")]
-    [SerializeField][Range(0.1f, 1.0f)]
+    [SerializeField][Range(0.1f, 2.0f)]
     private float tempMultiplicator;
 
     private void Start()
@@ -28,7 +28,7 @@ public class TheWorldFeature : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(TheWorldFunction());
         }
@@ -36,11 +36,11 @@ public class TheWorldFeature : MonoBehaviour
 
     IEnumerator TheWorldFunction()
     {
-        Time.timeScale = Time.timeScale / 2;
+        playerCtrl.Smoke();
+        yield return new WaitForSeconds(2);
+        Time.timeScale = 0.5f;
         playerCtrl.SetTimeScale(tempMultiplicator);
-
-        yield return new WaitForSecondsRealtime(theWorldTimer);
-
+        yield return new WaitForSeconds(theWorldTimer);
         Time.timeScale = 1;
         playerCtrl.ResetSpeed();
     }
