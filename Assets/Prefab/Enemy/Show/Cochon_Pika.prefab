@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7897304019609677778}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Cochon_Pika
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,9 +106,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7897304020763901257}
   - component: {fileID: 7897304020763901256}
-  - component: {fileID: 7897304020763901258}
   - component: {fileID: 7897304020763901366}
   - component: {fileID: 7897304020763901367}
+  - component: {fileID: 4987708444241777299}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Monster
@@ -183,22 +183,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &7897304020763901258
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7897304020763901261}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0
 --- !u!95 &7897304020763901366
 Animator:
   serializedVersion: 4
@@ -209,7 +193,7 @@ Animator:
   m_GameObject: {fileID: 7897304020763901261}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 34c16b953096d55428eb8214d2d8725f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 146468b9a7a541d42a1eec499fd2e7ca, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -237,3 +221,29 @@ MonoBehaviour:
   - {fileID: 7897304020110290330}
   - {fileID: 7897304020132390075}
   graphics: {fileID: 7897304020763901256}
+--- !u!61 &4987708444241777299
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897304020763901261}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0033740997, y: -0.038917303}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.25, y: 0.75}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0070534, y: 0.942106}
+  m_EdgeRadius: 0
