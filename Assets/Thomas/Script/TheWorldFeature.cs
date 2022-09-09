@@ -31,6 +31,9 @@ public class TheWorldFeature : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            StopAllCoroutines();
+            Time.timeScale = 1;
+            playerCtrl.ResetSpeed();
             StartCoroutine(TheWorldFunction());
         }
     }

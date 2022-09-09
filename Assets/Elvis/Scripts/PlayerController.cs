@@ -257,7 +257,6 @@ public class PlayerController : MonoBehaviour
     {
         _canMove = value;
         animator.SetBool("Move", false);
-        animator.SetTrigger("Victory");
     }
     
     public void Glide()
@@ -330,6 +329,7 @@ public class PlayerController : MonoBehaviour
             GameMaster.instance.high += 16;
             GameMaster.instance.countdown -= 20;
             horizontal = 0;
+            
         }
     }
 

@@ -14,6 +14,10 @@ public class MenuController : MonoBehaviour
     [SerializeField]
     private GlideManager glideScript;
 
+    public GameObject logo1;
+    public GameObject logo2;
+    public GameObject logo3;
+
     public bool isMenuActive = false;
     
     public int cursorPos = 0;
@@ -68,6 +72,9 @@ public class MenuController : MonoBehaviour
                 else if (index == 0)
                 {
                     print("Plateforme");
+                    logo1.SetActive(true);
+                    logo2.SetActive(false);
+                    logo3.SetActive(false);
                 }
                 else if (index == 1)
                 {
@@ -75,6 +82,9 @@ public class MenuController : MonoBehaviour
                     TWFScript.enabled = true;
 
                     glideScript.enabled = false;
+                    logo1.SetActive(false);
+                    logo2.SetActive(true);
+                    logo3.SetActive(false);
                 }
                 else if (index == 2)
                 {
@@ -82,6 +92,9 @@ public class MenuController : MonoBehaviour
                     glideScript.enabled = true;
 
                     TWFScript.enabled = false;
+                    logo1.SetActive(false);
+                    logo2.SetActive(false);
+                    logo3.SetActive(true);
                 }
                 
                 menu.SetActive(isMenuActive);
