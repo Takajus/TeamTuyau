@@ -178,9 +178,9 @@ MonoBehaviour:
   _canJump: 1
   crouchSize: {x: 1, y: 0.5}
   animationPlatformCreation: 1
-  positionInstantiateUpPlatform: {x: 0, y: 1}
-  positionInstantiateLeftPlatform: {x: -2, y: 0.5}
-  positionInstantiateRightPlatform: {x: 2, y: 0.5}
+  positionInstantiateUpPlatform: {x: 0, y: 1.4}
+  positionInstantiateLeftPlatform: {x: -2.5, y: 0.8}
+  positionInstantiateRightPlatform: {x: 2.5, y: 0.8}
   maxPlatformCanCreate: 2
 --- !u!114 &8731747750363380075
 MonoBehaviour:

@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!menu.isMenuActive)
             Movement();
-
         Flip();
         if (menu.index == 0) 
             Interaction();
@@ -221,7 +220,7 @@ public class PlayerController : MonoBehaviour
 
     private void CreatePlatform()
     {
-        if (!_canJump) return;
+        if (!_canJump || _isSmoking) return;
         
         _isAnimationEnd = false;
 
@@ -257,6 +256,8 @@ public class PlayerController : MonoBehaviour
     public void SetCanMove(bool value)
     {
         _canMove = value;
+        animator.SetBool("Move", false);
+        animator.SetTrigger("Victory");
     }
     
     public void Glide()
@@ -293,6 +294,10 @@ public class PlayerController : MonoBehaviour
             force = 33;
             animator.SetTrigger("Idle");
         }
+        else if (col.gameObject.tag == "house")
+        {
+            animator.SetTrigger("Victory");
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -322,7 +327,9 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Move", false);
             animator.SetTrigger("Smoke");
             StartCoroutine(DelaySmoking(2));
-            GameMaster.instance.high += 15;
+            GameMaster.instance.high += 16;
+            GameMaster.instance.countdown -= 20;
+            horizontal = 0;
         }
     }
 

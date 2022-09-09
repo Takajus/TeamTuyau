@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6118776473249276032}
   m_Layer: 0
   m_Name: House
-  m_TagString: Untagged
+  m_TagString: house
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,3 +124,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54c2faac9a2cf994b848401fbe662930, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delai: 2

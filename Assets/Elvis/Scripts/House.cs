@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class House : MonoBehaviour
 {
     [SerializeField] 
-    private float delai = 2;
+    private float delai = 5;
     
     private delegate void Action();
 

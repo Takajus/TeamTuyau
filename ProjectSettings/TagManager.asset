@@ -11,6 +11,7 @@ TagManager:
   - MobWall
   - Monster
   - platform
+  - house
   layers:
   - Default
   - TransparentFX
