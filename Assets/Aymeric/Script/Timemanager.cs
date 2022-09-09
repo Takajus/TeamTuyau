@@ -14,7 +14,6 @@ public class Timemanager : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        //_txtTimer = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -26,6 +25,6 @@ public class Timemanager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    //_txtTimer.text = "Timer: " + GameMaster.instance.countdown.ToString();
+    _txtTimer.text = "Time: " + ((int) GameMaster.instance.countdown).ToString();
     }
 }
