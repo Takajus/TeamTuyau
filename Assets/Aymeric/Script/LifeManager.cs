@@ -8,6 +8,7 @@ public class LifeManager : MonoBehaviour
 {
     [Header("Minus time after hit")]
     public int timeHit;
+    public AudioSource ouch;
 
     private bool flashActive;
     [SerializeField]
@@ -59,6 +60,10 @@ public class LifeManager : MonoBehaviour
         }
     }
 
+        public void PlayJump(){
+        ouch.Play ();
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Monster"))
@@ -66,6 +71,7 @@ public class LifeManager : MonoBehaviour
             flashActive = true;
             flashCounter = flashLenght;
             GameMaster.instance.countdown -= timeHit;
+            ouch.Play ();
         }
     }
 }
