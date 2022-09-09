@@ -102,9 +102,6 @@ public class PlayerController : MonoBehaviour
         
         if (IsGroundedGround())
         {
-            ChangeGravityScale(5);
-            force = 33;
-            _isGliding = false;
             _canJump = true;
             _canCreateMorePlatform = true;
             maxPlatformCanCreate = 2;
@@ -112,9 +109,6 @@ public class PlayerController : MonoBehaviour
         
         if (IsGroundedPlat())
         {
-            ChangeGravityScale(5);
-            force = 33;
-            _isGliding = false;
             _canJump = true;
             _canCreateMorePlatform = false;
         }
@@ -259,7 +253,7 @@ public class PlayerController : MonoBehaviour
     
     public void Glide()
     {
-        if (_canJump)
+        if (_canJump && !_isGliding)
         {
             _isGliding = true;
             Smoke();
@@ -284,6 +278,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        if (col.gameObject.tag == "ground" || col.gameObject.tag == "platform")
+        {
+            _isGliding = false;
+            ChangeGravityScale(5);
+            force = 33;
+            animator.SetTrigger("Idle");
+        }
     }
 
     private void OnCollisionExit2D(Collision2D other)
@@ -323,8 +324,10 @@ public class PlayerController : MonoBehaviour
 
         _isSmoking = false;
         animator.SetTrigger("Idle");
+        print("wtf2");
         if (_isGliding)
         {
+            print("wtf");
             animator.SetBool("Move", false);
             animator.SetTrigger("Glide");
             ChangeGravityScale(gliding);
