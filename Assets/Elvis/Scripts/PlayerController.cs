@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
         leftWall = GameObject.FindGameObjectWithTag("LeftWall");
         _positionToCreatePlatform = positionInstantiateRightPlatform;
         GameMaster.instance.high = 0; 
-        GameMaster.instance.countdown = 500;
+        GameMaster.instance.countdown = 600;
         Time.timeScale = 1f;
     }
 
@@ -326,8 +326,8 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Move", false);
             animator.SetTrigger("Smoke");
             StartCoroutine(DelaySmoking(2));
-            GameMaster.instance.high += 16;
-            GameMaster.instance.countdown -= 20;
+            GameMaster.instance.high += 20;
+            GameMaster.instance.countdown -= 15;
             horizontal = 0;
             
         }
