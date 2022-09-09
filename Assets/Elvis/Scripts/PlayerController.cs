@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour
 
     private Transform tr;
     private Rigidbody2D rb;
-    private BoxCollider2D coll;    
+    private BoxCollider2D coll;
+
+    public Animator animator;
     
     [Header("Keybinding")]
     [SerializeField]
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
     private bool _isAnimationEnd = true;
     private bool _canMove = true;
     private bool _canCreateMorePlatform = false;
+    private bool _isGliding = false;
+    private bool _isSmoking = false;
 
     [SerializeField]
     private Vector2 crouchSize = new Vector2(1, 0.5f);
@@ -97,31 +101,37 @@ public class PlayerController : MonoBehaviour
         if (!_isAnimationEnd) return;
         if (!_canMove) return;
         
-        if (Input.GetKeyDown(jump))
+        if (Input.GetKeyDown(jump) && !_isSmoking)
         {
             if (_canJump)
             {
                 Jump();
+                animator.SetBool("Move", false);
+                animator.SetTrigger("Jump");
                 _canJump = false;
             }
         }
 
-        if (Input.GetKeyDown(crouch))
+        /*if (Input.GetKeyDown(crouch))
         {
             ToggleCrouch();
-        }
+        }*/
         
-        if (Input.GetKey(forward))
+        if (Input.GetKey(forward) && !_isSmoking)
         {
             SetPositionToCreatePlatform(positionInstantiateRightPlatform);
             tr.rotation = new Quaternion(0, 0, 0,0);
             Move(Vector2.right);
         }
-        else if (Input.GetKey(backward) && Vector2.Distance(leftWall.transform.position, tr.position) < distanceLeftWall)
+        else if (Input.GetKey(backward) && Vector2.Distance(leftWall.transform.position, tr.position) < distanceLeftWall && !_isSmoking)
         {
             SetPositionToCreatePlatform(positionInstantiateLeftPlatform);
             tr.rotation = new Quaternion(0, -180, 0,0);
             Move(Vector2.left);
+        }
+        else
+        {
+            animator.SetBool("Move", false);
         }
     }
 
@@ -154,6 +164,8 @@ public class PlayerController : MonoBehaviour
 
     private void Move(Vector3 dir)
     {
+        if (!_isGliding)
+            animator.SetBool("Move", true);
         tr.position += dir * (speed * Time.deltaTime);
     }
 
@@ -162,19 +174,23 @@ public class PlayerController : MonoBehaviour
         if (!_canJump) return;
         
         _isAnimationEnd = false;
-            
+
         Vector2 currentPlayerPosition = tr.position;
         Vector2 position = currentPlayerPosition + _positionToCreatePlatform;
 
         if (_canCreateMorePlatform)
         {
+            animator.SetBool("Move", false);
+            animator.SetTrigger("Smoke");
             Instantiate(platform, position, Quaternion.identity);
             _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
         }
         else
         {
             if (maxPlatformCanCreate <= 0) return;
-            
+
+            animator.SetBool("Move", false);
+            animator.SetTrigger("Smoke");
             Instantiate(platform, position, Quaternion.identity);
             _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
 
@@ -194,16 +210,14 @@ public class PlayerController : MonoBehaviour
     
     public void Glide()
     {
-        ChangeGravityScale(gliding);
-        force = 10;
-        
-        if (_canJump)
-            Jump();
+        _isGliding = true;
+        Smoke();
     }
 
     public void SetTimeScale(float newSpeed)
     {
         speed *= newSpeed;
+        animator.SetTrigger("Idle");
     }
 
     public void ResetSpeed()
@@ -219,19 +233,22 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D col)
     {
         ChangeGravityScale(5);
-        force = 30;
+        force = 33;
+        _isGliding = false;
 
         if (col.gameObject.CompareTag("ground"))
         {
             _canJump = true;
             _canCreateMorePlatform = true;
             maxPlatformCanCreate = 2;
+            animator.SetTrigger("Idle");
         }
         
         if (col.gameObject.CompareTag("platform"))
         {
             _canJump = true;
             _canCreateMorePlatform = false;
+            animator.SetTrigger("Idle");
         }
     }
 
@@ -249,7 +266,34 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         
         _isAnimationEnd = true;
-        
+        animator.SetTrigger("Idle");
+
         StopCoroutine(_currentCoroutine);
+    }
+
+    public void Smoke()
+    {
+        _isSmoking = true;
+        animator.SetBool("Move", false);
+        animator.SetTrigger("Smoke");
+        StartCoroutine(DelaySmoking(2));
+    }
+
+    private IEnumerator DelaySmoking(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        _isSmoking = false;
+        animator.SetTrigger("Idle");
+        if (_isGliding)
+        {
+            animator.SetBool("Move", false);
+            animator.SetTrigger("Glide");
+            ChangeGravityScale(gliding);
+            force = 10;
+
+            if (_canJump)
+                Jump();
+        }
     }
 }
