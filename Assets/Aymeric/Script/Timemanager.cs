@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Timemanager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class Timemanager : MonoBehaviour
     private void Update()
     {
     GameMaster.instance.countdown -= Time.deltaTime;
+
+    if(GameMaster.instance.countdown <=0){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     //_txtTimer.text = "Timer: " + GameMaster.instance.countdown.ToString();
     }
