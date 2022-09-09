@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
         _positionToCreatePlatform = positionInstantiateRightPlatform;
         GameMaster.instance.high = 0; 
         GameMaster.instance.countdown = 500;
+        Time.timeScale = 1f;
     }
 
     // Update is called once per frame
