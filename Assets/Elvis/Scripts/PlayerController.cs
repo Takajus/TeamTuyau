@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Flip();
-        if (menu._featuresChose) 
+        if (menu.index == 0) 
             Interaction();
         
         if (IsGroundedGround())

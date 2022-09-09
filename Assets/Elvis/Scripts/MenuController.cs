@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MenuController : MonoBehaviour
 {
     [SerializeField]
     private GameObject cursor, menu;
-
     [SerializeField]
     private TheWorldFeature TWFScript;
     [SerializeField]
@@ -14,7 +14,8 @@ public class MenuController : MonoBehaviour
     [SerializeField]
     private GlideManager glideScript;
 
-    public bool _featuresChose = false;
+    public bool isMenuActive = false;
+    
     public int cursorPos = 0;
 
     private Vector2[] _positionCursor =
@@ -24,12 +25,11 @@ public class MenuController : MonoBehaviour
         new Vector2(45, -45)
     };
 
-    private int index = 0;
+    public int index = 0;
     
     // Start is called before the first frame update
     void Start()
     {
-
         cursor.transform.localPosition = _positionCursor[2];
 
         if (TWFScript == null || playerScript == null || glideScript == null)
@@ -43,62 +43,60 @@ public class MenuController : MonoBehaviour
         glideScript.enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            if (Time.timeScale == 0)
+            if (!isMenuActive)
             {
-                if (cursorPos == 3)
+                isMenuActive = true;
+                menu.SetActive(isMenuActive);
+            }
+            else if (isMenuActive)
+            {
+                isMenuActive = false;
+                TWFScript.enabled = false;
+                glideScript.enabled = false;
+                
+                if (index == 3)
                 {
                     print("button settup is wrong");
                     
                     TWFScript.enabled = false;
                     glideScript.enabled = false;
-                    _featuresChose = false;
                 }
-                else if (cursorPos == 0)
+                else if (index == 0)
                 {
                     print("Plateforme");
-                    _featuresChose = true;
                 }
-                else if (cursorPos == 1)
+                else if (index == 1)
                 {
                     print("THE WORLD");
                     TWFScript.enabled = true;
-                    
+
                     glideScript.enabled = false;
-                    _featuresChose = false;
                 }
-                else if (cursorPos == 2)
+                else if (index == 2)
                 {
                     print("Glide");
                     glideScript.enabled = true;
-                    
+
                     TWFScript.enabled = false;
-                    _featuresChose = false;
                 }
-
-                menu.SetActive(false);
-                Time.timeScale = 1;
-
-            }
-            if (Time.timeScale == 1)
-            {
-                menu.SetActive(true);
-                Time.timeScale = 0;
-
-                TWFScript.enabled = false;
-                glideScript.enabled = false;
-                _featuresChose = false;
+                
+                menu.SetActive(isMenuActive);
             }
         }
-        if (Input.GetKeyDown(KeyCode.B))
+        
+        if (Input.GetKeyDown(KeyCode.Q) && isMenuActive)
+        {
             ChangeSelection(false);
+        }
+        if (Input.GetKeyDown(KeyCode.D) && isMenuActive)
+            ChangeSelection(true);
     }
 
-    private void ChangeSelection(bool right = true)
+    public void ChangeSelection(bool right = true)
     {
         if (right)
         {
@@ -117,5 +115,6 @@ public class MenuController : MonoBehaviour
 
         cursorPos = index;
         cursor.transform.localPosition = _positionCursor[index];
+        Debug.LogWarning("Cusror moved: index " + index + " - pos "+_positionCursor[index]);
     }
 }
