@@ -90,6 +90,8 @@ public class PlayerController : MonoBehaviour
         
         leftWall = GameObject.FindGameObjectWithTag("LeftWall");
         _positionToCreatePlatform = positionInstantiateRightPlatform;
+        GameMaster.instance.high = 0; 
+        GameMaster.instance.countdown = 500;
     }
 
     // Update is called once per frame
@@ -172,17 +174,8 @@ public class PlayerController : MonoBehaviour
     private void Jump(float dist = 1)
     {
         rb.AddForce(Vector2.up * (dist * (force * jumpSpeed)));
-        
-        if (_isCrouch)
-            ToggleCrouch(); 
     }
 
-    private void ToggleCrouch()
-    {
-        _isCrouch = !_isCrouch;
-
-        coll.size = _isCrouch ? crouchSize : defaultCrouchSize;
-    }
 
     private void Move()
     {
