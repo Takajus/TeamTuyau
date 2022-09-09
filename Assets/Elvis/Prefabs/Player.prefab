@@ -174,7 +174,7 @@ MonoBehaviour:
   backward: 113
   crouch: 97
   platformCreation: 101
-  platformUpCreation: 116
+  platformUpCreation: 122
   _canJump: 1
   crouchSize: {x: 1, y: 0.5}
   animationPlatformCreation: 1
@@ -241,8 +241,9 @@ MonoBehaviour:
   TWFScript: {fileID: 0}
   playerScript: {fileID: 0}
   glideScript: {fileID: 0}
-  _featuresChose: 0
+  isMenuActive: 0
   cursorPos: 0
+  index: 0
 --- !u!95 &4924514841044455965
 Animator:
   serializedVersion: 4

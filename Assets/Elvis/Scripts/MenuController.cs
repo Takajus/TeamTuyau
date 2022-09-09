@@ -20,9 +20,9 @@ public class MenuController : MonoBehaviour
 
     private Vector2[] _positionCursor =
     {
-        new Vector2(-40, -45),
-        new Vector2(3, -45),
-        new Vector2(45, -45)
+        new Vector2(-47, -45),
+        new Vector2(0, -45),
+        new Vector2(47, -45)
     };
 
     public int index = 0;
@@ -30,7 +30,7 @@ public class MenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cursor.transform.localPosition = _positionCursor[2];
+        cursor.transform.localPosition = _positionCursor[index];
 
         if (TWFScript == null || playerScript == null || glideScript == null)
         {

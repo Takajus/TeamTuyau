@@ -18,10 +18,10 @@ public class CameraScript : MonoBehaviour
 
     private void Start()
     {
-        if(_player.gameObject == null)
+        /*if(_player.gameObject == null)
         {
             _player = GameObject.FindGameObjectWithTag("Player");
-        }
+        }*/
 
         if(_camera.GetComponent<PixelPerfectCamera>() == null)
         {

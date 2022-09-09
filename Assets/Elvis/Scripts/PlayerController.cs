@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private KeyCode platformCreation = KeyCode.E;
     [SerializeField]
-    private KeyCode platformUpCreation = KeyCode.T;
+    private KeyCode platformUpCreation = KeyCode.Z;
     
     public bool _canJump = true;
     private bool _isCrouch = false;
@@ -100,7 +100,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (!menu.isMenuActive)
+            Movement();
+
         Flip();
         if (menu.index == 0) 
             Interaction();
@@ -230,7 +232,7 @@ public class PlayerController : MonoBehaviour
         {
             create.Play ();
             animator.SetBool("Move", false);
-            animator.SetTrigger("Smoke");
+            Smoke();
             Instantiate(platform, position, Quaternion.identity);
             _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
         }
@@ -239,7 +241,7 @@ public class PlayerController : MonoBehaviour
             if (maxPlatformCanCreate <= 0) return;
 
             animator.SetBool("Move", false);
-            animator.SetTrigger("Smoke");
+            Smoke();
             Instantiate(platform, position, Quaternion.identity);
             _currentCoroutine = StartCoroutine(DelayCreatePlatform(animationPlatformCreation));
 
