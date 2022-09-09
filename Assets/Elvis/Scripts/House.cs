@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class House : MonoBehaviour
 {
+    [SerializeField] 
+    private float delai = 2;
     
     private delegate void Action();
 
@@ -20,13 +23,19 @@ public class House : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            _action();
             col.gameObject.GetComponent<PlayerController>().SetCanMove(false);
+            _action();
         }
     }
 
     private void EndGame()
     {
-        print("End Game");
+        StartCoroutine(DelaiBeforeLoad(delai));
+    }
+
+    IEnumerator DelaiBeforeLoad(float delai)
+    {
+        yield return new WaitForSeconds(delai);
+        SceneManager.LoadScene("MainMenu");
     }
 }
